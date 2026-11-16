@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0E2A2F">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230E2A2F'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%23fff' stroke-width='2.4'/%3E%3Ccircle cx='16' cy='16' r='5' fill='%23F2A900'/%3E%3C/svg%3E">
+<title>سُفرة — سعرات وجبتك من الصورة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Reem+Kufi:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#EDF1EF;--card:#FAFCFB;--ink:#0E2A2F;--mut:#5B7075;--line:#CBD6D3;--sf:#F2A900;--sfd:#8A5F00;--chili:#C93B28;--sage:#2F7D5B;--pr:#2F6FB5;--r:8px}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{font:400 16px/1.6 'IBM Plex Sans Arabic',system-ui,sans-serif;background:var(--bg);color:var(--ink);padding-bottom:92px}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--sf);outline-offset:2px}
+[hidden]{display:none!important}
+.top{background:var(--ink);color:#fff;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:20}
+.brand{font:700 28px/1 'Reem Kufi',sans-serif}
+.brand small{display:block;font:400 12px 'IBM Plex Sans Arabic';opacity:.7;margin-top:5px}
+.top .gear{width:40px;height:40px;border-radius:50%;border:1px solid #ffffff40;font-size:18px}
+main{max-width:640px;margin:0 auto;padding:0 16px}
+.view{display:none;padding-top:22px}.view.on{display:block}
+h1.hero{font:700 40px/1.15 'Reem Kufi',sans-serif;margin-bottom:6px}
+.sub{color:var(--mut);margin-bottom:18px}
+.banner{border:2px solid var(--ink);background:#FFF4D1;padding:12px 14px;margin-bottom:16px;display:flex;gap:10px;align-items:center;justify-content:space-between;font-size:14px}
+.btn{background:var(--ink);color:#fff;padding:12px 18px;border-radius:var(--r);font-weight:600;display:inline-flex;gap:8px;align-items:center;justify-content:center}
+.btn.sf{background:var(--sf);color:var(--ink)}
+.btn.line{background:transparent;color:var(--ink);border:2px solid var(--ink)}
+.btn.sm{padding:7px 12px;font-size:14px}
+.btn.wide{width:100%;padding:15px;font-size:18px}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.drop{border:2px dashed var(--ink);background:var(--card);padding:26px 16px;text-align:center;border-radius:var(--r)}
+.drop .row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.shots{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.shot{position:relative;width:104px;height:104px;border:3px solid var(--ink);box-shadow:5px 5px 0 var(--sf)}
+.shot img{width:100%;height:100%;object-fit:cover;display:block}
+.shot button{position:absolute;top:-10px;left:-10px;width:24px;height:24px;border-radius:50%;background:var(--chili);color:#fff;font-size:13px}
+details.opts{margin:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:10px 0}
+details.opts summary{font-weight:600;cursor:pointer;list-style:none}
+details.opts summary::before{content:'＋ ';color:var(--sfd)}
+details[open].opts summary::before{content:'－ '}
+.fld{margin-top:12px}.fld label{display:block;font-size:14px;color:var(--mut);margin-bottom:4px}
+.inp{width:100%;padding:10px 12px;border:1.5px solid var(--ink);background:#fff;border-radius:6px}
+textarea.inp{min-height:64px;resize:vertical}
+.hint{font-size:13px;color:var(--mut);margin-top:4px}
+.sec{margin-top:26px}
+.sec h2{font:700 24px/1.2 'Reem Kufi',sans-serif;margin-bottom:10px}
+/* منطقة الالتقاط: زوايا عدسة */
+.drop.vf{position:relative;border:0;padding:34px 18px 26px;background:var(--card)}
+.drop.vf>i{position:absolute;width:30px;height:30px;border:4px solid var(--ink)}
+.drop.vf>i:nth-of-type(1){top:8px;right:8px;border-left:0;border-bottom:0}
+.drop.vf>i:nth-of-type(2){top:8px;left:8px;border-right:0;border-bottom:0}
+.drop.vf>i:nth-of-type(3){bottom:8px;right:8px;border-left:0;border-top:0}
+.drop.vf>i:nth-of-type(4){bottom:8px;left:8px;border-right:0;border-top:0}
+.drop.vf svg.big{width:86px;height:86px;margin-bottom:6px;color:var(--ink)}
+.hero-img{border:3px solid var(--ink);border-bottom:0;aspect-ratio:16/10;overflow:hidden;background:#DDE6E3}
+.hero-img img{width:100%;height:100%;object-fit:cover;display:block}
+/* كاميرا داخل التطبيق */
+#camUI{position:fixed;inset:0;background:#000;z-index:80}
+#camV{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.frame{position:absolute;inset:17% 8% 25%;pointer-events:none;box-shadow:0 0 0 100vmax rgba(14,42,47,.55)}
+.frame i{position:absolute;width:44px;height:44px;border:5px solid var(--sf)}
+.frame i:nth-child(1){top:-2px;right:-2px;border-left:0;border-bottom:0}
+.frame i:nth-child(2){top:-2px;left:-2px;border-right:0;border-bottom:0}
+.frame i:nth-child(3){bottom:-2px;right:-2px;border-left:0;border-top:0}
+.frame i:nth-child(4){bottom:-2px;left:-2px;border-right:0;border-top:0}
+.ctop{position:absolute;top:0;inset-inline:0;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:max(14px,env(safe-area-inset-top)) 14px 10px;color:#fff;z-index:2}
+.ctop button{width:44px;height:44px;border-radius:50%;background:#0E2A2Fb3;color:#fff;font-size:20px;flex:none}
+#camTip{background:#0E2A2Fb3;padding:7px 14px;border-radius:99px;font-size:14px;font-weight:600;text-align:center}
+.cbot{position:absolute;bottom:0;inset-inline:0;display:flex;align-items:center;justify-content:space-between;padding:18px 22px calc(22px + env(safe-area-inset-bottom));z-index:2}
+.cbot .side{min-width:84px;color:#fff;font-weight:700;font-size:15px}
+.cbot .side.l{text-align:left}
+#camDone{background:var(--sf);color:var(--ink);padding:10px 18px;border-radius:var(--r);font-weight:700}
+#camShot{width:78px;height:78px;border-radius:50%;background:#fff;border:7px solid var(--sf);outline:3px solid #fff;outline-offset:4px;flex:none}
+#camShot:active{transform:scale(.93)}
+#camFlash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;transition:opacity .14s;z-index:3}
+#camFlash.on{opacity:.85}
+/* أيقونات */
+.ic{width:1.3em;height:1.3em;flex:none}
+.tabs button svg{width:27px;height:27px}
+/* استخراج من المعرض */
+.bulk h2{font:700 22px/1.3 'Reem Kufi',sans-serif;margin-bottom:6px}
+.bi{display:grid;grid-template-columns:22px 64px 1fr auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.bi input[type=checkbox]{width:20px;height:20px;accent-color:#0E2A2F}
+.bi img{width:64px;height:64px;object-fit:cover;border:2px solid var(--ink)}
+.bi b{display:block;line-height:1.3}.bi small{color:var(--mut);font-size:12.5px}
+.bi .k{font:700 24px/1 'Reem Kufi',sans-serif}
+.bi .open{font-size:13px;color:var(--sfd);font-weight:700;padding:3px 0}
+.skip{font-size:13px;color:var(--mut);margin-top:10px}
+.prog{height:8px;background:#ffffff26;margin:16px auto 0;max-width:260px}
+.prog i{display:block;height:100%;width:0;background:var(--sf);transition:width .3s}
+/* Nutrition label */
+.label{background:var(--card);border:3px solid var(--ink);padding:14px 16px 12px}
+.label .nm{width:100%;border:0;border-bottom:1.5px dashed var(--line);background:transparent;font:700 22px 'IBM Plex Sans Arabic';padding:2px 0}
+.label .cal{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;padding:8px 0 4px}
+.label .cal b{font:700 76px/0.95 'Reem Kufi',sans-serif;letter-spacing:-1px}
+.label .cal span{font-size:15px;font-weight:600;padding-bottom:8px}
+.rng{font-size:14px;color:var(--mut)}
+.badge{display:inline-block;font-size:12px;font-weight:700;padding:2px 9px;border-radius:99px;margin-inline-start:6px}
+.badge.ok{background:#D5EBDF;color:#1d5a40}.badge.mid{background:#FFE9A8;color:#6b4a00}.badge.low{background:#F7D3CD;color:#8c2415}
+.thick{border:0;border-top:9px solid var(--ink);margin:8px 0}
+.mid{border:0;border-top:4px solid var(--ink);margin:6px 0}
+.thin{border:0;border-top:1px solid var(--ink);margin:0}
+.lr{display:flex;justify-content:space-between;align-items:baseline;padding:5px 0;font-size:15px}
+.lr b{font-weight:700}.lr .dv{font-weight:700}
+.lr.sub1{padding-inline-start:18px;font-size:14px}
+.dot{display:inline-block;width:10px;height:10px;margin-inline-end:7px;border-radius:2px}
+.donutWrap{display:flex;align-items:center;gap:14px;margin:6px 0 2px}
+.donut{width:104px;height:104px;flex:none}
+.leg{font-size:14px;flex:1}.leg div{display:flex;justify-content:space-between;padding:2px 0}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.tag{font-size:13px;font-weight:600;padding:4px 10px;border-radius:5px;border:1.5px solid}
+.tag.warn{color:var(--chili);border-color:var(--chili)}.tag.good{color:var(--sage);border-color:var(--sage)}.tag.info{color:var(--pr);border-color:var(--pr)}
+/* Ingredient rows */
+.ing{display:grid;grid-template-columns:66px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);position:relative}
+.pic{width:66px;height:66px;position:relative;background:#DDE6E3;border:2px solid var(--ink);display:grid;place-items:center;font-size:34px;overflow:hidden}
+.pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .35s}
+.pic img.ok{opacity:1}
+.ing .nm{font-weight:700;line-height:1.3}
+.ing .mc{font-size:12.5px;color:var(--mut);margin-top:2px}
+.ing .hid{font-size:11.5px;color:var(--sfd);font-weight:700}
+.ing .rt{text-align:left}
+.ing .kc{font:700 24px/1 'Reem Kufi',sans-serif}.ing .kc small{font:400 12px 'IBM Plex Sans Arabic';color:var(--mut)}
+.stp{display:flex;align-items:center;gap:4px;margin-top:6px;direction:ltr;justify-content:flex-end}
+.stp button{width:30px;height:30px;border:1.5px solid var(--ink);border-radius:6px;font-size:18px;line-height:1}
+.stp input{width:58px;height:30px;text-align:center;border:1.5px solid var(--ink);border-radius:6px;background:#fff}
+.stp span{font-size:12px;color:var(--mut)}
+.ing .x{position:absolute;top:6px;left:0;font-size:13px;color:var(--mut);padding:2px 6px}
+.empty{padding:22px 0;color:var(--mut);text-align:center}
+/* tools */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:7px 13px;border:1.5px solid var(--ink);border-radius:99px;font-weight:600;font-size:14px;background:transparent}
+.chip.on{background:var(--ink);color:#fff}
+.tools{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.note{background:#E3EDEA;border-inline-start:5px solid var(--sage);padding:10px 12px;font-size:14px;margin-top:12px}
+.note.w{background:#FFF1CC;border-color:var(--sf)}
+.fine{font-size:12.5px;color:var(--mut);margin-top:16px}
+.savebar{display:flex;gap:10px;margin-top:16px}
+.savebar select{flex:none;width:112px;padding:10px;border:2px solid var(--ink);border-radius:var(--r);background:#fff}
+/* day */
+.dnav{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.dnav b{font:700 22px 'Reem Kufi'}
+.dnav button{width:40px;height:40px;border:2px solid var(--ink);border-radius:50%;font-size:18px}
+.ringbox{display:flex;align-items:center;gap:18px}
+.ring{width:132px;height:132px;flex:none}
+.ringnum{font:700 40px/1 'Reem Kufi'}
+.bar{margin:8px 0}.bar .bl{display:flex;justify-content:space-between;font-size:14px}
+.bar .tr{height:9px;background:#D6E0DD;margin-top:3px}.bar .fl{height:100%}
+.meal{display:grid;grid-template-columns:54px 1fr auto;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.meal img,.meal .ph{width:54px;height:54px;object-fit:cover;border:2px solid var(--ink);display:grid;place-items:center;font-size:26px;background:#DDE6E3}
+.meal b{display:block}.meal small{color:var(--mut)}
+.meal .k{font:700 22px 'Reem Kufi';text-align:left}
+.meal .d{font-size:12px;color:var(--chili);padding:0;display:block}
+.week{display:flex;align-items:flex-end;gap:8px;height:130px;border-bottom:2px solid var(--ink);position:relative;margin-top:8px}
+.week .col{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;font-size:11px}
+.week .col i{display:block;width:100%;background:var(--sf);min-height:2px}
+.week .col.today i{background:var(--ink)}
+.wl{display:flex;gap:8px}.wl span{flex:1;text-align:center;font-size:12px;color:var(--mut);margin-top:3px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.card{background:var(--card);border:2px solid var(--ink);padding:16px;border-radius:var(--r)}
+/* nav */
+.tabs{position:fixed;bottom:0;inset-inline:0;background:var(--card);border-top:3px solid var(--ink);display:flex;z-index:30;padding-bottom:env(safe-area-inset-bottom)}
+.tabs button{flex:1;padding:10px 0 9px;font-size:13px;font-weight:600;color:var(--mut);display:flex;flex-direction:column;align-items:center;gap:1px}
+.tabs button i{font-style:normal;font-size:22px}
+.tabs button.on{color:var(--ink);box-shadow:inset 0 4px 0 var(--sf)}
+/* sheet */
+.sheet{position:fixed;inset:0;background:#0E2A2F99;z-index:50;display:flex;align-items:flex-end;justify-content:center}
+.sheet .panel{background:var(--bg);width:100%;max-width:640px;max-height:86vh;overflow:auto;padding:18px 16px 28px;border-top:4px solid var(--sf)}
+.sheet h3{font:700 24px 'Reem Kufi';margin-bottom:10px;display:flex;justify-content:space-between}
+.qres{margin-top:8px}
+.qrow{display:grid;grid-template-columns:38px 1fr auto;gap:10px;align-items:center;width:100%;padding:9px 0;border-bottom:1px solid var(--line);text-align:right}
+.qrow .e{font-size:26px;text-align:center}.qrow small{color:var(--mut)}
+.cust{margin-top:14px}.cust summary{font-weight:600;cursor:pointer}
+/* loader */
+#loader{position:fixed;inset:0;background:var(--ink);color:#fff;z-index:60;display:grid;place-items:center;text-align:center;padding:30px}
+#loader .pl{width:150px;height:150px;border-radius:50%;border:8px solid #ffffff22;border-top-color:var(--sf);animation:sp 1.1s linear infinite;margin:0 auto 22px;display:grid;place-items:center}
+#loader .pl span{animation:sp 1.1s linear infinite reverse;font-size:56px}
+#loader b{font:700 26px 'Reem Kufi'}
+#loader p{opacity:.8;margin-top:6px;min-height:28px}
+@keyframes sp{to{transform:rotate(360deg)}}
+#toast{position:fixed;bottom:104px;inset-inline:16px;margin:auto;max-width:420px;background:var(--ink);color:#fff;padding:11px 16px;border-radius:var(--r);z-index:70;text-align:center;font-size:14.5px;opacity:0;pointer-events:none;transition:.25s;transform:translateY(10px)}
+#toast.on{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media (max-width:380px){.label .cal b{font-size:62px}h1.hero{font-size:34px}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-cam" viewBox="0 0 32 32"><path d="M4 12a3 3 0 0 1 3-3h2.4l1.5-2.3A2 2 0 0 1 12.6 5.8h6.8a2 2 0 0 1 1.7.9L22.6 9H25a3 3 0 0 1 3 3v11a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><circle cx="16" cy="17.5" r="6.4" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="16" cy="17.5" r="3.6" fill="#F2A900"/><circle cx="23.8" cy="13" r="1.3" fill="currentColor"/></symbol>
+<symbol id="i-gal" viewBox="0 0 32 32"><rect x="4" y="5" width="24" height="22" rx="3.5" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="12" cy="12.5" r="2.6" fill="#F2A900"/><path d="M5 23.5l7.2-7 5 4.8 3.6-3.4L27 23" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+<symbol id="i-stack" viewBox="0 0 32 32"><rect x="9" y="4" width="19" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M5 10v14a3 3 0 0 0 3 3h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="15" cy="10" r="2" fill="#F2A900"/><path d="M10 18l5-4 4 3 3-2.5 4 3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+<symbol id="i-day" viewBox="0 0 32 32"><rect x="6" y="4" width="20" height="24" rx="3.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M11 11h10M11 16h10M11 21h5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="21" cy="21" r="2.2" fill="#F2A900"/></symbol>
+<symbol id="i-goal" viewBox="0 0 32 32"><circle cx="16" cy="16" r="11.5" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="16" cy="16" r="6.5" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="16" cy="16" r="2.6" fill="#F2A900"/></symbol>
+</defs></svg>
+
+<header class="top">
+  <div class="brand">سُفرة<small>سعرات وجبتك من الصورة</small></div>
+  <button class="gear" id="btnCfg" aria-label="الإعدادات">⚙</button>
+</header>
+
+<main>
+  <!-- ===== تحليل ===== -->
+  <section class="view on" id="v-scan">
+    <h1 class="hero">صوّر طبقك.<br>نحسب سعراته.</h1>
+    <p class="sub">التطبيق يتعرّف على المكوّنات ويقدّر أوزانها ثم يحسب السعرات والمغذيات. تقدر تعدّل أي وزن بنفسك وتتحدّث الأرقام فورًا.</p>
+
+    <div class="banner" id="banner" hidden>
+      <span>لتحليل الصور أضف مفتاح API مرة واحدة. يمكنك أيضًا بناء الوجبة يدويًا بدون مفتاح.</span>
+      <button class="btn sm sf" id="btnKey">أضف المفتاح</button>
+    </div>
+
+    <div class="drop vf">
+      <i></i><i></i><i></i><i></i>
+      <svg class="big" aria-hidden="true"><use href="#i-cam"/></svg><br>
+      <b>صوّر الوجبة من الأعلى</b>
+      <div class="hint">أضف زاوية ثانية وثالثة من الجانب لتقدير الحجم بدقة أعلى (حتى 3 صور).</div>
+      <div class="row">
+        <button class="btn sf" id="btnCam"><svg class="ic" aria-hidden="true"><use href="#i-cam"/></svg>التقط صورة</button>
+        <button class="btn line" id="btnGal"><svg class="ic" aria-hidden="true"><use href="#i-gal"/></svg>من المعرض</button>
+      </div>
+      <input type="file" id="cam" accept="image/*" capture="environment" hidden>
+      <input type="file" id="gal" accept="image/*" multiple hidden>
+      <div class="shots" id="shots"></div>
+    </div>
+
+    <details class="opts">
+      <summary>معلومات ترفع الدقة (اختياري لكنها مهمة)</summary>
+      <div class="fld">
+        <label for="ref">جسم للمقارنة بجانب الطعام</label>
+        <select class="inp" id="ref">
+          <option value="">لا يوجد</option>
+          <option>طبق قطره 26 سم</option>
+          <option>طبق قطره 30 سم</option>
+          <option>طبق صغير قطره 20 سم</option>
+          <option>بطاقة بنكية (8.5 × 5.4 سم)</option>
+          <option>ملعقة طعام عادية</option>
+          <option>كف اليد بجانب الطبق</option>
+          <option>هاتف جوال</option>
+          <option>كوب قياسي 250 مل</option>
+        </select>
+        <div class="hint">وجود جسم معروف الحجم يساعد على تقدير الأوزان.</div>
+      </div>
+      <div class="fld">
+        <label for="wt">وزن الوجبة كاملة بالميزان (غرام)</label>
+        <input class="inp" id="wt" type="number" inputmode="decimal" min="0" placeholder="مثلاً 420">
+        <div class="hint">لو عندك ميزان مطبخ، هذا أقوى عامل لرفع الدقة: نوزّع الوزن على المكوّنات.</div>
+      </div>
+      <div class="fld">
+        <label for="notes">أشياء لا تظهر في الصورة</label>
+        <textarea class="inp" id="notes" placeholder="مثلاً: الأرز مطبوخ بسمن، الشاي فيه 3 ملاعق سكر، الدجاج مقلي بزيت غزير"></textarea>
+      </div>
+    </details>
+
+    <button class="btn sf wide" id="btnGo" disabled>حلّل الوجبة</button>
+    <button class="btn line wide" id="btnManual" style="margin-top:10px;font-size:15px;padding:11px">أو ابنِ الوجبة يدويًا من قاعدة الأطعمة</button>
+    <button class="btn line wide" id="btnBulk" style="margin-top:10px;font-size:15px;padding:11px"><svg class="ic" aria-hidden="true"><use href="#i-stack"/></svg>استخراج الأطعمة والمشروبات من المعرض</button>
+    <p class="hint" style="text-align:center">اختر عدة صور من معرضك (حتى 12). نتجاهل ما ليس طعامًا أو مشروبًا ونحلّل الباقي ونسجّله بتاريخ كل صورة. الصور المختارة فقط تُرسل لمزوّد الذكاء الاصطناعي.</p>
+    <input type="file" id="bulk" accept="image/*" multiple hidden>
+    <div id="bulkBox" class="sec bulk" hidden></div>
+
+    <div id="result" class="sec" hidden></div>
+  </section>
+
+  <!-- ===== اليوم ===== -->
+  <section class="view" id="v-day">
+    <div class="dnav">
+      <button id="dPrev" aria-label="اليوم السابق">›</button>
+      <b id="dLbl">اليوم</b>
+      <button id="dNext" aria-label="اليوم التالي">‹</button>
+    </div>
+    <div id="dayBox"></div>
+  </section>
+
+  <!-- ===== حسابي ===== -->
+  <section class="view" id="v-me">
+    <h1 class="hero" style="font-size:32px">هدفك اليومي</h1>
+    <p class="sub">نحسب احتياجك بمعادلة Mifflin-St Jeor، وتظهر نسبة كل وجبة من هدفك.</p>
+    <div class="card">
+      <div class="grid2">
+        <div class="fld"><label>الجنس</label><select class="inp" id="pSex"><option value="m">ذكر</option><option value="f">أنثى</option></select></div>
+        <div class="fld"><label>العمر</label><input class="inp" id="pAge" type="number" inputmode="numeric" placeholder="30"></div>
+        <div class="fld"><label>الوزن (كجم)</label><input class="inp" id="pW" type="number" inputmode="decimal" placeholder="75"></div>
+        <div class="fld"><label>الطول (سم)</label><input class="inp" id="pH" type="number" inputmode="decimal" placeholder="175"></div>
+      </div>
+      <div class="fld"><label>النشاط</label>
+        <select class="inp" id="pAct">
+          <option value="1.2">خامل (عمل مكتبي)</option>
+          <option value="1.375">خفيف (1–3 أيام رياضة)</option>
+          <option value="1.55">متوسط (3–5 أيام)</option>
+          <option value="1.725">عالٍ (6–7 أيام)</option>
+        </select></div>
+      <div class="fld"><label>الهدف</label>
+        <select class="inp" id="pGoal">
+          <option value="-450">نزول وزن</option>
+          <option value="0">ثبات الوزن</option>
+          <option value="350">زيادة وزن</option>
+        </select></div>
+      <button class="btn sf wide" id="pSave" style="margin-top:14px">احسب واحفظ</button>
+      <div id="pOut"></div>
+    </div>
+
+    <div class="sec">
+      <h2>ربط الذكاء الاصطناعي</h2>
+      <div class="card">
+        <div class="fld" style="margin-top:0"><label>المزوّد</label>
+          <select class="inp" id="cProv">
+            <option value="auto">تلقائي (أي مفتاح)</option>
+            <option value="openai">ChatGPT (OpenAI)</option>
+            <option value="openrouter">OpenRouter (مئات النماذج بمفتاح واحد)</option>
+            <option value="claude">Claude (Anthropic)</option>
+            <option value="gemini">Gemini (Google)</option>
+          </select></div>
+        <div class="fld"><label>مفتاح API (الصق أي مفتاح: ChatGPT أو Claude أو Gemini أو OpenRouter)</label><input class="inp" id="cKey" type="password" autocomplete="off" placeholder="الصق المفتاح هنا" style="direction:ltr;text-align:left"></div>
+        <div class="fld"><label>النموذج (اتركه فارغًا للافتراضي)</label><input class="inp" id="cModel" placeholder="يُحدَّد تلقائيًا حسب المفتاح" style="direction:ltr;text-align:left"></div>
+        <button class="btn wide" id="cSave" style="margin-top:14px">حفظ الإعدادات</button>
+        <p class="hint" style="margin-top:10px">المفتاح يُحفظ في متصفحك فقط ويُرسل مباشرة إلى المزوّد. لا تنشر هذا الملف وفيه مفتاحك، ولا تستخدم مفتاحك على جهاز مشترك.</p>
+      </div>
+    </div>
+
+    <div class="sec">
+      <h2>بياناتك</h2>
+      <div class="tools" style="margin-top:0">
+        <button class="btn line" id="btnCsv">تصدير السجل CSV</button>
+        <button class="btn line" id="btnWipe" style="color:var(--chili);border-color:var(--chili)">مسح كل البيانات</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<nav class="tabs">
+  <button data-go="scan" class="on"><svg aria-hidden="true"><use href="#i-cam"/></svg>تحليل</button>
+  <button data-go="day"><svg aria-hidden="true"><use href="#i-day"/></svg>اليوم</button>
+  <button data-go="me"><svg aria-hidden="true"><use href="#i-goal"/></svg>هدفي</button>
+</nav>
+
+<div id="camUI" hidden>
+  <video id="camV" autoplay playsinline muted></video>
+  <div class="frame"><i></i><i></i><i></i><i></i></div>
+  <div class="ctop"><button id="camX" aria-label="إغلاق الكاميرا">✕</button><span id="camTip"></span><button id="camFlip" aria-label="تبديل الكاميرا">⟲</button></div>
+  <div class="cbot"><div class="side" id="camCnt"></div><button id="camShot" aria-label="التقاط الصورة"></button><div class="side l"><button id="camDone" hidden>تم</button></div></div>
+  <div id="camFlash"></div>
+</div>
+<div class="sheet" id="sheet" hidden><div class="panel" id="panel"></div></div>
+<div id="loader" hidden><div><div class="pl"><span>🍽</span></div><b>نحلّل وجبتك</b><p id="lmsg"></p><div class="prog" id="lprogw" hidden><i id="lprog"></i></div></div></div>
+<div id="toast" role="status"></div>
+
+<script>
+'use strict';
+/* ================= أدوات ================= */
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const uid=()=>Math.random().toString(36).slice(2,9);
+const num=v=>{v=parseFloat(v);return isFinite(v)?v:0};
+const r0=v=>Math.round(v),r1=v=>Math.round(v*10)/10;
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const LS={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},
+  set(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){toast('تعذّر الحفظ: مساحة المتصفح ممتلئة');return false}}};
+const todayKey=(d=new Date())=>new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,10);
+let tT;function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(tT);tT=setTimeout(()=>t.classList.remove('on'),2800)}
+const norm=s=>String(s).toLowerCase().replace(/[ً-ْـ]/g,'').replace(/[أإآ]/g,'ا').replace(/ة/g,'ه').replace(/ى/g,'ي');
+
+/* ================= قاعدة الأطعمة (لكل 100 غ) ================= */
+// id, عربي, English, رمز, kcal, بروتين, كربو, دهون, ألياف, سكر, صوديوم mg, وزن افتراضي, عنوان ويكيبيديا
+const RAW=[
+['rice','أرز أبيض مطبوخ','White rice','🍚',130,2.7,28,.3,.4,.1,1,150,'Cooked_rice'],
+['kabsa','أرز كبسة / مجبوس','Kabsa rice','🍛',170,4,26,5.5,1,1,320,250,'Kabsa'],
+['biryani','برياني','Biryani','🍛',165,7,21,5.5,1,1,330,250,'Biryani'],
+['pasta','معكرونة مطبوخة','Cooked pasta','🍝',158,5.8,31,.9,1.8,.6,6,180,'Pasta'],
+['noodles','نودلز مطبوخ','Cooked noodles','🍜',138,4.5,25,2.1,1.2,.5,5,200,'Noodle'],
+['bread_ar','خبز عربي','Pita bread','🫓',275,9,56,1.2,2.2,1.5,536,60,'Pita'],
+['bread','خبز أبيض / توست','White bread','🍞',265,9,49,3.2,2.7,5,491,40,'White_bread'],
+['roll','صامولي / خبز برجر','Bread roll','🥖',280,9,50,4,2.4,5,550,70,'Bread_roll'],
+['croissant','كرواسون','Croissant','🥐',406,8.2,45.8,21,2.6,11,400,60,'Croissant'],
+['chk_grill','دجاج مشوي (صدر)','Grilled chicken breast','🍗',165,31,0,3.6,0,0,74,120,'Chicken_as_food'],
+['chk_roast','دجاج مشوي بالجلد','Roasted chicken with skin','🍗',215,25,0,12.5,0,0,85,150,'Roast_chicken'],
+['chk_fried','دجاج مقلي','Fried chicken','🍗',280,19,10,17,.4,0,520,150,'Fried_chicken'],
+['shawarma_chk','لحم شاورما دجاج','Chicken shawarma meat','🥙',215,20,3,14,.3,1,520,120,'Shawarma'],
+['shawarma_sand','ساندويتش شاورما','Shawarma sandwich','🌯',230,12,25,9,1.5,2,560,220,'Shawarma'],
+['beef','لحم بقر مطبوخ','Cooked beef','🥩',250,26,0,15,0,0,72,120,'Beef'],
+['lamb','لحم غنم مطبوخ','Cooked lamb','🍖',294,25,0,21,0,0,72,120,'Lamb_and_mutton'],
+['kebab','كباب / كفتة مشوية','Grilled kofta kebab','🍢',250,19,4,18,.5,1,500,120,'Kofta'],
+['burger','برجر (ساندويتش كامل)','Hamburger sandwich','🍔',250,13,24,11,1.3,5,480,220,'Hamburger'],
+['pizza','بيتزا','Pizza','🍕',266,11,33,10,2.3,3.6,598,150,'Pizza'],
+['fish','سمك مشوي','Grilled fish','🐟',140,23,0,5,0,0,80,150,'Fish_as_food'],
+['fish_fried','سمك مقلي','Fried fish','🐟',230,20,8,13,.3,0,400,150,'Fried_fish'],
+['shrimp','روبيان / جمبري مطبوخ','Cooked shrimp','🦐',99,24,.2,.3,0,0,111,100,'Shrimp'],
+['egg_b','بيض مسلوق','Boiled egg','🥚',155,13,1.1,11,0,1.1,124,50,'Boiled_egg'],
+['egg_f','بيض مقلي','Fried egg','🍳',196,14,.8,15,0,.4,207,50,'Fried_egg'],
+['omelette','أومليت','Omelette','🍳',154,11,.6,12,0,.4,155,100,'Omelette'],
+['fries','بطاطس مقلية','French fries','🍟',312,3.4,41,15,3.8,.3,210,120,'French_fries'],
+['potato','بطاطس مسلوقة','Boiled potato','🥔',87,1.9,20,.1,1.8,.9,5,150,'Potato'],
+['hummus','حمص بطحينة','Hummus','🧆',166,8,14,9.6,6,.3,379,60,'Hummus'],
+['falafel','فلافل','Falafel','🧆',333,13,32,18,5,2,294,30,'Falafel'],
+['mutabbal','متبّل / بابا غنوج','Baba ghanoush','🍆',130,2,8,10,3,3,300,60,'Baba_ghanoush'],
+['tabbouleh','تبولة','Tabbouleh','🥗',110,2.5,12,6,3,2,180,100,'Tabbouleh'],
+['fattoush','فتوش','Fattoush','🥗',85,2,10,4.5,2,2,200,120,'Fattoush'],
+['salad','سلطة خضار','Green salad','🥗',20,1.2,3.6,.2,1.8,2,25,100,'Salad'],
+['tomato','طماطم','Tomato','🍅',18,.9,3.9,.2,1.2,2.6,5,80,'Tomato'],
+['cucumber','خيار','Cucumber','🥒',15,.7,3.6,.1,.5,1.7,2,80,'Cucumber'],
+['lettuce','خس','Lettuce','🥬',15,1.4,2.9,.2,1.3,.8,28,40,'Lettuce'],
+['onion','بصل','Onion','🧅',40,1.1,9.3,.1,1.7,4.2,4,40,'Onion'],
+['carrot','جزر','Carrot','🥕',41,.9,10,.2,2.8,4.7,69,60,'Carrot'],
+['broccoli','بروكلي','Broccoli','🥦',34,2.8,7,.4,2.6,1.7,33,80,'Broccoli'],
+['corn','ذرة','Sweet corn','🌽',86,3.3,19,1.4,2,6.3,15,80,'Maize'],
+['mushroom','فطر','Mushrooms','🍄',22,3.1,3.3,.3,1,2,5,60,'Mushroom'],
+['beans','فاصوليا مطبوخة','Cooked beans','🫘',127,8.7,22.8,.5,6.4,.3,2,100,'Common_bean'],
+['chickpea','حمص مطبوخ','Cooked chickpeas','🫘',164,8.9,27.4,2.6,7.6,4.8,7,100,'Chickpea'],
+['lentil_soup','شوربة عدس','Lentil soup','🍲',70,4,11,1.2,3,1.5,300,250,'Lentil_soup'],
+['soup','شوربة / مرق','Soup','🍲',45,2.5,5,1.5,.8,1.5,350,250,'Soup'],
+['stew','يخنة لحم وخضار','Meat and vegetable stew','🍲',95,7,7,4.5,1.5,2,350,250,'Stew'],
+['harees','هريس','Harees','🥣',155,9,20,4,1.5,.5,250,250,'Harees'],
+['thareed','ثريد','Tharid','🥘',140,8,17,4.5,1.5,1.5,300,300,'Tharid'],
+['luqaimat','لقيمات','Luqaimat','🍩',360,5,45,18,1,20,150,80,'Luqaimat'],
+['kunafa','كنافة','Kunafa','🍰',380,6,40,22,1,22,200,120,'Kanafeh'],
+['baklava','بقلاوة','Baklava','🍯',430,6,45,25,2,27,150,60,'Baklava'],
+['dates','تمر','Dates','🌴',282,2.5,75,.4,8,63,2,30,'Date_(fruit)'],
+['cake','كيك','Cake','🍰',370,5,50,17,1,32,300,100,'Cake'],
+['donut','دونات','Doughnut','🍩',452,4.9,51,25,1.7,22,326,70,'Doughnut'],
+['icecream','آيس كريم','Ice cream','🍨',207,3.5,24,11,.7,21,80,100,'Ice_cream'],
+['chocolate','شوكولاتة','Chocolate','🍫',546,4.9,61,31,7,48,24,40,'Chocolate'],
+['biscuit','بسكويت','Biscuit','🍪',470,6,68,19,2,25,400,30,'Biscuit'],
+['chips','شيبس','Potato chips','🥔',536,7,53,35,4.4,.3,525,40,'Potato_chip'],
+['banana','موز','Banana','🍌',89,1.1,23,.3,2.6,12,1,120,'Banana'],
+['apple','تفاح','Apple','🍎',52,.3,14,.2,2.4,10,1,180,'Apple'],
+['orange','برتقال','Orange','🍊',47,.9,12,.1,2.4,9,0,150,'Orange_(fruit)'],
+['watermelon','بطيخ','Watermelon','🍉',30,.6,7.6,.2,.4,6,1,250,'Watermelon'],
+['grapes','عنب','Grapes','🍇',69,.7,18,.2,.9,15,2,100,'Grape'],
+['mango','مانجو','Mango','🥭',60,.8,15,.4,1.6,14,1,150,'Mango'],
+['strawberry','فراولة','Strawberry','🍓',32,.7,7.7,.3,2,4.9,1,100,'Strawberry'],
+['avocado','أفوكادو','Avocado','🥑',160,2,8.5,14.7,6.7,.7,7,100,'Avocado'],
+['cheese','جبنة شيدر / صفراء','Cheddar cheese','🧀',403,25,1.3,33,0,.5,621,30,'Cheddar_cheese'],
+['halloumi','جبنة حلوم','Halloumi','🧀',321,21,2,25,0,1,1200,60,'Halloumi'],
+['feta','جبنة بيضاء / فيتا','Feta cheese','🧀',264,14,4,21,0,4,917,40,'Feta'],
+['labneh','لبنة','Labneh','🥣',150,6,5,12,0,4,100,50,'Labneh'],
+['yogurt','زبادي','Plain yogurt','🥛',61,3.5,4.7,3.3,0,4.7,46,150,'Yogurt'],
+['milk','حليب كامل الدسم','Whole milk','🥛',61,3.2,4.8,3.3,0,5,43,240,'Milk'],
+['butter','زبدة','Butter','🧈',717,.9,.1,81,0,.1,11,10,'Butter'],
+['olive_oil','زيت طبخ / زيتون','Olive oil','🫒',884,0,0,100,0,0,2,14,'Olive_oil'],
+['ghee','سمن','Ghee','🧈',900,0,0,100,0,0,0,14,'Ghee'],
+['mayo','مايونيز','Mayonnaise','🥫',680,1,.6,75,0,.6,635,15,'Mayonnaise'],
+['ketchup','كاتشب','Ketchup','🍅',101,1,27,.1,.3,22,907,15,'Ketchup'],
+['tahini','طحينة','Tahini','🥫',595,17,21,54,9.3,.5,115,15,'Tahini'],
+['toum','توميّة (صلصة ثوم)','Toum garlic sauce','🧄',480,1,3,52,.5,1,500,20,'Toum'],
+['jam','مربى / عسل','Jam or honey','🍯',280,.4,70,0,.5,60,20,20,'Jam'],
+['almond','لوز','Almonds','🌰',579,21,22,50,12.5,4,1,30,'Almond'],
+['pbutter','زبدة فول سوداني','Peanut butter','🥜',588,25,20,50,6,9,426,20,'Peanut_butter'],
+['oats','شوفان مطبوخ','Cooked oatmeal','🥣',71,2.5,12,1.5,1.7,.3,49,250,'Oatmeal'],
+['cereal','كورن فليكس','Corn flakes','🥣',357,7.5,84,.4,3,10,729,40,'Breakfast_cereal'],
+['samosa','سمبوسة','Samosa','🥟',262,5,24,17,2,1.5,420,50,'Samosa'],
+['sugar','سكر','Sugar','🍬',387,0,100,0,0,100,1,5,'Sugar'],
+['cola','مشروب غازي','Cola','🥤',42,0,10.6,0,0,10.6,4,330,'Cola'],
+['juice','عصير برتقال','Orange juice','🧃',45,.7,10.4,.2,.2,8.4,1,250,'Orange_juice'],
+['karak','شاي كرك (حليب وسكر)','Karak chai','🍵',55,1.5,8,2,0,7.5,25,200,'Masala_chai'],
+['coffee','قهوة سوداء','Black coffee','☕',1,.1,0,0,0,0,2,200,'Coffee'],
+['latte','لاتيه / كابتشينو','Latte','☕',45,2.5,4.5,2,0,4.5,30,300,'Latte'],
+['gahwa','قهوة عربية','Arabic coffee','☕',2,.1,0,0,0,0,2,60,'Arabic_coffee'],
+['water','ماء','Water','💧',0,0,0,0,0,0,0,250,'Water']
+];
+const DB={};RAW.forEach(r=>DB[r[0]]={id:r[0],ar:r[1],en:r[2],e:r[3],k:r[4],p:r[5],c:r[6],f:r[7],fi:r[8],su:r[9],na:r[10],dg:r[11],w:r[12]});
+
+/* ================= الحالة ================= */
+const S={photos:[],meal:null,type:guessType(),viewDate:todayKey()};
+function guessType(){const h=new Date().getHours();return h<11?'فطور':h<16?'غداء':h<19?'سناك':'عشاء'}
+const cfg=()=>Object.assign({provider:'auto',key:'',model:''},LS.get('sa_cfg',{}));
+const defModel=p=>p==='openrouter'?'openai/gpt-4o':p==='openai'?'gpt-4o':p==='gemini'?'gemini-flash-latest':p==='claude'?'claude-sonnet-5-5':'يُحدَّد تلقائيًا حسب المفتاح';
+/* التعرّف على المزوّد من شكل المفتاح */
+function detectProvider(k){k=String(k||'').trim();return /^sk-ant-/.test(k)?'claude':/^sk-or-/.test(k)?'openrouter':/^AIza/.test(k)?'gemini':/^sk-/.test(k)?'openai':null}
+const prov=c=>c.provider==='auto'?(detectProvider(c.key)||'openai'):c.provider;
+const getLog=()=>LS.get('sa_log',[]);
+
+function fromDB(id,g){const d=DB[id];return{uid:uid(),db:id,name:d.ar,en:d.en,e:d.e,w:d.w,g:g==null?d.dg:g,k:d.k,p:d.p,c:d.c,f:d.f,fi:d.fi,su:d.su,na:d.na,hidden:false}}
+function fromAI(it){
+  const g=Math.max(0,num(it.grams));
+  if(it.db_id&&DB[it.db_id]){const x=fromDB(it.db_id,g);if(it.name_ar)x.name=String(it.name_ar);x.hidden=!!it.hidden;if(it.emoji&&it.emoji.length<5)x.e=it.emoji;return x}
+  const p=num(it.protein_g),c=num(it.carbs_g),f=num(it.fat_g);let k=num(it.kcal_per_100g);const mk=4*p+4*c+9*f;
+  if(!k||(mk>0&&Math.abs(k-mk)/mk>.2))k=r0(mk);
+  return{uid:uid(),db:null,name:String(it.name_ar||it.name_en||'مكوّن'),en:String(it.name_en||''),e:(it.emoji&&it.emoji.length<5)?it.emoji:'🍽',w:String(it.name_en||''),g,k,p,c,f,fi:num(it.fiber_g),su:num(it.sugar_g),na:num(it.sodium_mg),hidden:!!it.hidden};
+}
+function totals(m){const t={g:0,k:0,p:0,c:0,f:0,fi:0,su:0,na:0};for(const i of m.items){const g=i.g*m.portion,x=g/100;t.g+=g;t.k+=i.k*x;t.p+=i.p*x;t.c+=i.c*x;t.f+=i.f*x;t.fi+=i.fi*x;t.su+=i.su*x;t.na+=i.na*x}return t}
+function ensureMeal(){if(!S.meal)S.meal={name:'وجبتي',items:[],portion:1,conf:.85,tips:'',warn:'',weighed:false,manual:true}}
+
+/* ================= الصور ================= */
+function loadImg(file){return new Promise((res,rej)=>{const u=URL.createObjectURL(file),im=new Image();im.onload=()=>{URL.revokeObjectURL(u);res(im)};im.onerror=()=>{URL.revokeObjectURL(u);rej(new Error('تعذّرت قراءة الصورة. جرّب صورة JPG أو PNG.'))};im.src=u})}
+function shrink(im,max,q){const s=Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);c.getContext('2d').drawImage(im,0,0,c.width,c.height);return c.toDataURL('image/jpeg',q)}
+async function addFiles(list){for(const f of [...list]){if(S.photos.length>=3){toast('الحد الأقصى 3 صور');break}try{const im=await loadImg(f);S.photos.push({full:shrink(im,1280,.85),thumb:shrink(im,160,.6)})}catch(e){toast(e.message)}}renderShots()}
+function renderShots(){
+  $('#shots').innerHTML=S.photos.map((p,i)=>`<div class="shot"><img src="${p.thumb}" alt="صورة ${i+1}"><button data-rm="${i}" aria-label="حذف الصورة">✕</button></div>`).join('');
+  $('#btnGo').disabled=!S.photos.length;
+}
+
+/* ================= الذكاء الاصطناعي ================= */
+function buildPrompt(ctx){
+  ctx=ctx||{ref:$('#ref').value,notes:$('#notes').value.trim(),wt:num($('#wt').value)};
+  const ref=ctx.ref,notes=ctx.notes,wt=ctx.wt;
+  const list=Object.values(DB).map(d=>d.id+'='+d.en).join('; ');
+  return `You are an expert clinical dietitian and food-portion estimator. The attached photo(s) show the SAME meal, possibly from different angles. Analyze it and answer with ONLY a valid JSON object (no markdown, no commentary).
+
+Rules:
+1. List every distinct component separately (rice, meat, sauce, bread, salad vegetables, drink, oil...). Maximum 14 items.
+2. Estimate the edible, as-served weight in grams of each item. Use visible cues: plate or bowl size, cutlery, hands, glasses, packaging, and the reference object below. Think about food depth and density, not only the top-down area.
+3. If a component matches an entry in KNOWN FOODS, set "db_id" to its id (verified per-100g values will be applied by the app). Otherwise set "db_id" to null and give accurate per-100g values (USDA-style) for that exact preparation.
+4. Add probable hidden calories as separate items with "hidden": true and a conservative gram amount: cooking oil or ghee, butter, dressings, sugar in drinks, sauces absorbed in rice or bread.
+5. Do not under-estimate. People usually under-report portions.
+6. Drinks (tea, coffee, juice, soda, smoothies...) count as food. If the photo shows neither food nor a drink, return {"is_food": false}.
+7. Write "name_ar" in Arabic, "name_en" in simple English (it is used to look up a picture), and one fitting "emoji".
+
+Context from the user:
+- Reference object next to the food: ${ref||'none'}
+- Notes about unseen details: ${notes||'none'}
+- Total weight of the whole meal on a kitchen scale: ${wt>0?wt+' g (the item grams must add up to about this)':'unknown'}
+
+Return exactly this shape:
+{"is_food":true,"dish_ar":"","dish_en":"","overall_confidence":0.0,"hidden_warning":"short Arabic sentence about calories that are easy to miss, or empty","tips":"one short Arabic tip to make the meal healthier","items":[{"db_id":null,"name_ar":"","name_en":"","emoji":"","grams":0,"kcal_per_100g":0,"protein_g":0,"carbs_g":0,"fat_g":0,"fiber_g":0,"sugar_g":0,"sodium_mg":0,"hidden":false}]}
+(per-100g numbers are per 100 g of that item.) "overall_confidence" is between 0 and 1.
+
+KNOWN FOODS: ${list}`;
+}
+async function callClaude(c,prompt,photos){
+  const content=(photos||S.photos).map(p=>({type:'image',source:{type:'base64',media_type:'image/jpeg',data:p.full.split(',')[1]}}));
+  content.push({type:'text',text:prompt});
+  const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'content-type':'application/json','x-api-key':c.key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:c.model||defModel('claude'),max_tokens:3000,messages:[{role:'user',content}]})});
+  const j=await r.json().catch(()=>({}));
+  if(!r.ok)throw new Error((j.error&&j.error.message)||('خطأ من الخدمة ('+r.status+')'));
+  return(j.content||[]).map(b=>b.text||'').join('');
+}
+async function callGemini(c,prompt,photos){
+  const parts=[{text:prompt}].concat((photos||S.photos).map(p=>({inline_data:{mime_type:'image/jpeg',data:p.full.split(',')[1]}})));
+  const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/'+encodeURIComponent(c.model||defModel('gemini'))+':generateContent?key='+encodeURIComponent(c.key),{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({contents:[{parts}],generationConfig:{responseMimeType:'application/json',temperature:.2}})});
+  const j=await r.json().catch(()=>({}));
+  if(!r.ok)throw new Error((j.error&&j.error.message)||('خطأ من الخدمة ('+r.status+')'));
+  const cand=j.candidates&&j.candidates[0];
+  return cand&&cand.content&&cand.content.parts?cand.content.parts.map(p=>p.text||'').join(''):'';
+}
+async function callOpenAI(c,prompt,photos){
+  const content=[{type:'text',text:prompt}].concat((photos||S.photos).map(p=>({type:'image_url',image_url:{url:p.full,detail:'high'}})));
+  const orr=prov(c)==='openrouter',body={model:c.model||defModel(orr?'openrouter':'openai'),messages:[{role:'user',content}]};
+  if(!orr)body.response_format={type:'json_object'};
+  const r=await fetch(orr?'https://openrouter.ai/api/v1/chat/completions':'https://api.openai.com/v1/chat/completions',{method:'POST',headers:{'content-type':'application/json','authorization':'Bearer '+c.key},body:JSON.stringify(body)});
+  const j=await r.json().catch(()=>({}));
+  if(!r.ok)throw new Error((j.error&&j.error.message)||('خطأ من الخدمة ('+r.status+')'));
+  const ch=j.choices&&j.choices[0];
+  return ch&&ch.message&&ch.message.content?ch.message.content:'';
+}
+function callAI(c,prompt,photos){const p=prov(c);return p==='gemini'?callGemini(c,prompt,photos):p==='claude'?callClaude(c,prompt,photos):callOpenAI(c,prompt,photos)}
+function parseJSON(t){t=String(t).replace(/```json|```/g,'');const a=t.indexOf('{'),b=t.lastIndexOf('}');if(a<0||b<=a)throw new Error('الرد غير مفهوم. أعد المحاولة.');return JSON.parse(t.slice(a,b+1))}
+
+let lTimer;
+function loading(on,fixed){
+  const L=$('#loader');L.hidden=!on;clearInterval(lTimer);$('#lprogw').hidden=!fixed;
+  if(on&&!fixed){const msgs=['نتعرّف على المكوّنات…','نقدّر الأوزان من حجم الطبق…','نبحث عن الزيوت والصلصات المخفية…','نحسب السعرات والمغذيات…'];let i=0;$('#lmsg').textContent=msgs[0];lTimer=setInterval(()=>{i=(i+1)%msgs.length;$('#lmsg').textContent=msgs[i]},2200)}
+}
+async function analyze(){
+  const c=cfg();
+  if(!c.key){toast('أضف مفتاح API أولًا');go('me');setTimeout(()=>$('#cKey').focus(),300);return}
+  if(!S.photos.length)return;
+  loading(true);
+  try{
+    const txt=await callAI(c,buildPrompt());
+    const j=parseJSON(txt);
+    if(j.is_food===false){toast('ما ظهر طعام في الصورة. صوّر الطبق بوضوح من الأعلى.');return}
+    const items=(Array.isArray(j.items)?j.items:[]).map(fromAI).filter(i=>i.g>0);
+    if(!items.length){toast('لم نستطع تحديد المكوّنات. جرّب صورة أوضح.');return}
+    S.meal={name:String(j.dish_ar||j.dish_en||'وجبتي'),items,portion:1,conf:Math.min(1,Math.max(0,num(j.overall_confidence)||.7)),tips:String(j.tips||''),warn:String(j.hidden_warning||''),weighed:false,manual:false};
+    const wt=num($('#wt').value);if(wt>0)matchWeight(wt,true);
+    renderMeal();
+    setTimeout(()=>$('#result').scrollIntoView({behavior:'smooth',block:'start'}),100);
+  }catch(e){
+    const m=String(e.message||e);
+    toast(/failed to fetch|networkerror|load failed/i.test(m)?'تعذّر الاتصال. تأكد من الإنترنت وصحة المفتاح.':m.slice(0,140));
+  }finally{loading(false)}
+}
+
+/* ================= عرض الوجبة ================= */
+const DVREF={f:70,c:275,p:50,fi:28,su:50,na:2300};
+function donut(p,c,f){
+  const kp=p*4,kc=c*4,kf=f*9,tot=kp+kc+kf||1,R=44,C=2*Math.PI*R;let off=0;
+  const seg=(v,col)=>{const l=C*v/tot;const s=`<circle r="${R}" cx="60" cy="60" fill="none" stroke="${col}" stroke-width="18" stroke-dasharray="${l} ${C-l}" stroke-dashoffset="${-off}" transform="rotate(-90 60 60)"/>`;off+=l;return s};
+  return`<svg viewBox="0 0 120 120" class="donut" role="img" aria-label="توزيع السعرات">${seg(kp,'#2F6FB5')}${seg(kc,'#F2A900')}${seg(kf,'#C93B28')}</svg>`;
+}
+function insights(t,tg){
+  const a=[];
+  if(t.k>850)a.push(['warn','وجبة عالية السعرات']);
+  if(t.su>30)a.push(['warn','سكر مرتفع']);
+  if(t.na>1200)a.push(['warn','صوديوم (ملح) مرتفع']);
+  if(t.k&&t.f*9/t.k>.45)a.push(['warn','نسبة الدهون عالية']);
+  if(t.p>=30)a.push(['good','غنية بالبروتين']);
+  if(t.fi>=8)a.push(['good','غنية بالألياف']);
+  if(t.fi<3&&t.k>400)a.push(['info','ألياف قليلة: أضف خضارًا']);
+  if(tg)a.push(['info','تمثل '+Math.round(t.k/tg*100)+'% من هدفك اليومي']);
+  return a;
+}
+function renderMeal(){
+  const m=S.meal,box=$('#result');
+  if(!m){box.hidden=true;return}
+  box.hidden=false;
+  const t=totals(m),prof=LS.get('sa_prof',null),tg=prof&&prof.target||0;
+  const conf=m.weighed?.9:(m.conf==null?.7:m.conf),pm=conf>=.8?.1:conf>=.6?.2:.3;
+  const cl=conf>=.8?['ok','دقة عالية']:conf>=.6?['mid','دقة متوسطة']:['low','دقة منخفضة'];
+  const kc=r0(t.k),lo=r0(t.k*(1-pm)),hi=r0(t.k*(1+pm));
+  const sh=(g,k)=>t.k?Math.round(g*k/t.k*100):0;
+  const dv=(v,k)=>Math.round(v/DVREF[k]*100)+'%';
+  const wk=prof&&prof.w?prof.w:70,perMin=3.5*3.5*wk/200,walk=r0(t.k/perMin);
+  const tags=insights(t,tg).map(x=>`<span class="tag ${x[0]}">${esc(x[1])}</span>`).join('');
+  const rows=m.items.map(i=>{
+    const g=i.g*m.portion,k=r0(i.k*g/100);
+    return`<div class="ing" data-uid="${i.uid}">
+      <div class="pic"><span>${esc(i.e)}</span><img alt="" ${i.w?'':'hidden'}></div>
+      <div><div class="nm">${esc(i.name)}</div>${i.hidden?'<div class="hid">تقدير لسعرات مخفية</div>':''}
+        <div class="mc">بروتين ${r1(i.p*g/100)} · كربو ${r1(i.c*g/100)} · دهون ${r1(i.f*g/100)}</div></div>
+      <div class="rt"><div class="kc">${k} <small>سعرة</small></div>
+        <div class="stp"><button data-act="minus" aria-label="أنقص">−</button><input type="number" inputmode="decimal" min="0" value="${r0(g)}" data-act="set" aria-label="الوزن بالغرام"><button data-act="plus" aria-label="زِد">+</button><span>غ</span></div></div>
+      <button class="x" data-act="del" aria-label="حذف المكوّن">✕</button></div>`}).join('');
+  box.innerHTML=`
+  ${S.photos[0]?`<div class="hero-img"><img src="${S.photos[0].full}" alt="صورة الوجبة"></div>`:''}
+  <div class="label">
+    <input class="nm" id="mName" value="${esc(m.name)}" aria-label="اسم الوجبة">
+    <hr class="thin" style="margin-top:6px">
+    <div class="cal"><b>${kc}</b><span>سعرة حرارية<br><span style="font-weight:400;font-size:13px">لوزن ${r0(t.g)} غ</span></span></div>
+    <div class="rng">المدى المتوقع ${lo}–${hi}<span class="badge ${cl[0]}">${cl[1]}${m.weighed?' · بعد مطابقة الميزان':''}</span></div>
+    <hr class="thick">
+    <div class="donutWrap">${donut(t.p,t.c,t.f)}<div class="leg">
+      <div><span><i class="dot" style="background:#2F6FB5"></i>بروتين</span><b>${r0(t.p)} غ · ${sh(t.p,4)}%</b></div>
+      <div><span><i class="dot" style="background:#F2A900"></i>كربوهيدرات</span><b>${r0(t.c)} غ · ${sh(t.c,4)}%</b></div>
+      <div><span><i class="dot" style="background:#C93B28"></i>دهون</span><b>${r0(t.f)} غ · ${sh(t.f,9)}%</b></div></div></div>
+    <hr class="mid">
+    <div class="hint" style="text-align:left;font-weight:700;color:var(--ink)">% من القيمة اليومية المرجعية</div>
+    <hr class="thin">
+    <div class="lr"><span><b>الدهون</b> ${r0(t.f)} غ</span><span class="dv">${dv(t.f,'f')}</span></div><hr class="thin">
+    <div class="lr"><span><b>الكربوهيدرات</b> ${r0(t.c)} غ</span><span class="dv">${dv(t.c,'c')}</span></div>
+    <div class="lr sub1"><span>منها سكريات ${r0(t.su)} غ</span><span class="dv">${dv(t.su,'su')}</span></div>
+    <div class="lr sub1"><span>ألياف ${r1(t.fi)} غ</span><span class="dv">${dv(t.fi,'fi')}</span></div><hr class="thin">
+    <div class="lr"><span><b>البروتين</b> ${r0(t.p)} غ</span><span class="dv">${dv(t.p,'p')}</span></div><hr class="thin">
+    <div class="lr"><span><b>الصوديوم</b> ${r0(t.na)} ملغ</span><span class="dv">${dv(t.na,'na')}</span></div>
+  </div>
+  ${tags?`<div class="tags">${tags}</div>`:''}
+  ${t.k>20?`<div class="note">لحرق هذه الوجبة تحتاج المشي نحو <b>${walk} دقيقة</b> بسرعة معتدلة.</div>`:''}
+  ${m.warn?`<div class="note w">${esc(m.warn)}</div>`:''}
+
+  <div class="sec"><h2>مكوّنات وجبتك</h2>
+    <div id="ings">${rows||'<div class="empty">لا توجد مكوّنات بعد. أضف أول مكوّن من الأسفل.</div>'}</div>
+  </div>
+
+  <div class="sec"><h2>اضبط الدقة</h2>
+    <div class="hint" style="margin:0 0 6px">حجم الحصة كاملة</div>
+    <div class="chips">${[.75,1,1.25,1.5].map(v=>`<button class="chip ${m.portion===v?'on':''}" data-portion="${v}">${v}×</button>`).join('')}</div>
+    <div class="fld"><label for="wtFix">وزن الوجبة بالميزان (غرام)</label>
+      <div style="display:flex;gap:8px"><input class="inp" id="wtFix" type="number" inputmode="decimal" min="0" value="${num($('#wt').value)||''}" placeholder="مثلاً 420"><button class="btn sf" data-act="weigh">طابق</button></div>
+      <div class="hint">نعدّل كل الأوزان بالتناسب لتطابق الميزان.</div></div>
+    <div class="tools">
+      <button class="btn line" data-act="add">＋ أضف مكوّنًا</button>
+      <button class="btn line" data-act="oil">🫗 زيت أو سمن (ملعقة)</button>
+      ${S.photos.length?'<button class="btn line" data-act="redo">↻ حلّل من جديد</button>':''}
+      <button class="btn line" data-act="copy">⧉ انسخ الملخص</button>
+    </div>
+  </div>
+
+  ${m.tips?`<div class="note"><b>اقتراح:</b> ${esc(m.tips)}</div>`:''}
+  <div class="savebar">
+    <select id="mType" aria-label="نوع الوجبة">${['فطور','غداء','عشاء','سناك'].map(x=>`<option ${x===S.type?'selected':''}>${x}</option>`).join('')}</select>
+    <button class="btn sf" style="flex:1" data-act="save">💾 احفظ في سجل اليوم</button>
+  </div>
+  <p class="fine">الأرقام تقديرية. تقدير الوزن من الصورة قد يخطئ بنسبة تصل إلى 20–30%، وتقل الفروق بإدخال الوزن من الميزان وتعديل المكوّنات. ليست بديلًا عن استشارة أخصائي تغذية، خصوصًا لمرضى السكري والحالات الطبية.</p>`;
+  hydrate();
+  if(BULK.length)renderBulk();
+}
+/* صور المكوّنات من ويكيبيديا، مع رمز تعبيري احتياطي */
+const WIKI=LS.get('sa_wiki',{});
+async function wikiThumb(title){
+  if(!title)return'';
+  if(title in WIKI)return WIKI[title];
+  try{
+    const ctl=new AbortController(),to=setTimeout(()=>ctl.abort(),6000);
+    const r=await fetch('https://en.wikipedia.org/api/rest_v1/page/summary/'+encodeURIComponent(title.replace(/ /g,'_')),{signal:ctl.signal});clearTimeout(to);
+    if(!r.ok){WIKI[title]='';LS.set('sa_wiki',WIKI);return''}
+    const j=await r.json(),u=(j.thumbnail&&j.thumbnail.source)||'';WIKI[title]=u;LS.set('sa_wiki',WIKI);return u;
+  }catch(e){return''}
+}
+function hydrate(){
+  $$('#ings .ing').forEach(el=>{
+    const it=S.meal.items.find(x=>x.uid===el.dataset.uid);if(!it||!it.w)return;
+    wikiThumb(it.w).then(u=>{if(!u)return;const im=el.querySelector('.pic img');if(!im)return;im.onload=()=>{im.classList.add('ok');im.hidden=false};im.onerror=()=>{im.remove()};im.src=u});
+  });
+}
+function setEff(i,v){i.g=Math.max(0,v)/S.meal.portion}
+function matchWeight(target,silent){
+  const m=S.meal,cur=m.items.reduce((s,i)=>s+i.g,0)*m.portion;
+  if(!cur||target<=0)return;
+  const f=target/cur;m.items.forEach(i=>i.g*=f);m.weighed=true;
+  if(!silent)toast('تمت مطابقة الأوزان مع الميزان');
+}
+function summaryText(){
+  const m=S.meal,t=totals(m);
+  return`${m.name}\nالسعرات: ${r0(t.k)} | بروتين ${r0(t.p)} غ | كربو ${r0(t.c)} غ | دهون ${r0(t.f)} غ\n`+m.items.map(i=>`- ${i.name}: ${r0(i.g*m.portion)} غ (${r0(i.k*i.g*m.portion/100)} سعرة)`).join('\n');
+}
+function saveMeal(){
+  const m=S.meal;if(!m||!m.items.length){toast('أضف مكوّنات أولًا');return}
+  const t=totals(m),e={id:uid(),d:todayKey(),ts:Date.now(),type:$('#mType')?$('#mType').value:S.type,name:m.name,k:r0(t.k),p:r1(t.p),c:r1(t.c),f:r1(t.f),fi:r1(t.fi),su:r1(t.su),na:r0(t.na),th:(S.photos[0]&&S.photos[0].thumb)||'',items:m.items.map(i=>({n:i.name,e:i.e,g:r0(i.g*m.portion),k:r0(i.k*i.g*m.portion/100)}))};
+  const L=getLog();L.push(e);
+  if(LS.set('sa_log',L)){toast('تم الحفظ في سجل اليوم');S.viewDate=todayKey();renderDay()}
+}
+/* أحداث النتيجة */
+$('#result').addEventListener('click',ev=>{
+  const m=S.meal;if(!m)return;
+  const pr=ev.target.closest('[data-portion]');
+  if(pr){m.portion=num(pr.dataset.portion);renderMeal();return}
+  const b=ev.target.closest('[data-act]');if(!b)return;
+  const act=b.dataset.act,row=b.closest('.ing'),it=row&&m.items.find(x=>x.uid===row.dataset.uid);
+  if(act==='minus'||act==='plus'){const eff=it.g*m.portion,st=eff<50?5:10;setEff(it,act==='plus'?eff+st:eff-st);renderMeal()}
+  else if(act==='del'){m.items=m.items.filter(x=>x!==it);renderMeal()}
+  else if(act==='add')openAdd();
+  else if(act==='oil'){const o=m.items.find(x=>x.db==='olive_oil');if(o)o.g+=14/m.portion;else{const n=fromDB('olive_oil',14/m.portion);n.hidden=true;m.items.push(n)}renderMeal();toast('أضفنا ملعقة زيت (نحو 120 سعرة)')}
+  else if(act==='weigh'){const v=num($('#wtFix').value);if(v<=0){toast('اكتب الوزن بالغرام');return}matchWeight(v);renderMeal()}
+  else if(act==='redo')analyze();
+  else if(act==='copy'){const tx=summaryText();(navigator.clipboard?navigator.clipboard.writeText(tx):Promise.reject()).then(()=>toast('تم النسخ')).catch(()=>{const a=document.createElement('textarea');a.value=tx;document.body.appendChild(a);a.select();try{document.execCommand('copy');toast('تم النسخ')}catch(e){toast('تعذّر النسخ')}a.remove()})}
+  else if(act==='save')saveMeal();
+});
+$('#result').addEventListener('change',ev=>{
+  const m=S.meal;if(!m)return;
+  if(ev.target.id==='mName'){m.name=ev.target.value.trim()||'وجبتي';return}
+  if(ev.target.id==='mType'){S.type=ev.target.value;return}
+  if(ev.target.dataset.act==='set'){const row=ev.target.closest('.ing'),it=m.items.find(x=>x.uid===row.dataset.uid);if(it){setEff(it,num(ev.target.value));renderMeal()}}
+});
+
+/* ================= نافذة إضافة مكوّن ================= */
+function openSheet(html){$('#panel').innerHTML=html;$('#sheet').hidden=false}
+function closeSheet(){$('#sheet').hidden=true}
+$('#sheet').addEventListener('click',e=>{if(e.target.id==='sheet'||e.target.closest('[data-close]'))closeSheet()});
+function openAdd(){
+  openSheet(`<h3><span>أضف مكوّنًا</span><button data-close aria-label="إغلاق" style="font-size:20px">✕</button></h3>
+    <input class="inp" id="q" placeholder="ابحث: أرز، دجاج، تمر، كرك…" autocomplete="off">
+    <div class="qres" id="qres"></div>
+    <details class="cust"><summary>غير موجود؟ أضفه بقيمه الغذائية</summary>
+      <div class="grid2">
+        <div class="fld"><label>الاسم</label><input class="inp" id="cuN"></div>
+        <div class="fld"><label>الوزن (غ)</label><input class="inp" id="cuG" type="number" inputmode="decimal" value="100"></div>
+        <div class="fld"><label>سعرات لكل 100 غ</label><input class="inp" id="cuK" type="number" inputmode="decimal"></div>
+        <div class="fld"><label>بروتين لكل 100 غ</label><input class="inp" id="cuP" type="number" inputmode="decimal" value="0"></div>
+        <div class="fld"><label>كربو لكل 100 غ</label><input class="inp" id="cuC" type="number" inputmode="decimal" value="0"></div>
+        <div class="fld"><label>دهون لكل 100 غ</label><input class="inp" id="cuF" type="number" inputmode="decimal" value="0"></div>
+      </div>
+      <button class="btn sf wide" id="cuAdd" style="margin-top:12px">أضف المكوّن</button>
+    </details>`);
+  const draw=()=>{
+    const q=norm($('#q').value.trim());
+    const l=Object.values(DB).filter(d=>!q||norm(d.ar).includes(q)||d.en.toLowerCase().includes(q)).slice(0,40);
+    $('#qres').innerHTML=l.length?l.map(d=>`<button class="qrow" data-id="${d.id}"><span class="e">${d.e}</span><span>${esc(d.ar)}<br><small>${d.k} سعرة / 100 غ</small></span><small>${d.dg} غ</small></button>`).join(''):'<div class="empty">لا نتائج. أضفه بقيمه من الأسفل.</div>';
+  };
+  $('#q').oninput=draw;draw();
+  $('#qres').onclick=e=>{const b=e.target.closest('[data-id]');if(!b)return;ensureMeal();const d=DB[b.dataset.id];S.meal.items.push(fromDB(d.id,d.dg/S.meal.portion));closeSheet();renderMeal();$('#result').scrollIntoView({behavior:'smooth'})};
+  $('#cuAdd').onclick=()=>{
+    const n=$('#cuN').value.trim(),k=num($('#cuK').value),g=num($('#cuG').value);
+    if(!n||!(g>0)){toast('اكتب الاسم والوزن');return}
+    const p=num($('#cuP').value),c=num($('#cuC').value),f=num($('#cuF').value);
+    ensureMeal();
+    S.meal.items.push({uid:uid(),db:null,name:n,en:'',e:'🍽',w:'',g:g/S.meal.portion,k:k||r0(4*p+4*c+9*f),p,c,f,fi:0,su:0,na:0,hidden:false});
+    closeSheet();renderMeal();
+  };
+  setTimeout(()=>$('#q').focus(),50);
+}
+
+/* ================= سجل اليوم ================= */
+function sumE(a){return a.reduce((s,e)=>({k:s.k+e.k,p:s.p+e.p,c:s.c+e.c,f:s.f+e.f,fi:s.fi+e.fi,su:s.su+e.su,na:s.na+e.na}),{k:0,p:0,c:0,f:0,fi:0,su:0,na:0})}
+function ring(v,max){const R=52,C=2*Math.PI*R,p=Math.min(1,v/(max||1)),over=max&&v>max;return`<svg viewBox="0 0 130 130" class="ring" role="img" aria-label="السعرات المتناولة"><circle cx="65" cy="65" r="${R}" fill="none" stroke="#D6E0DD" stroke-width="13"/><circle cx="65" cy="65" r="${R}" fill="none" stroke="${over?'#C93B28':'#0E2A2F'}" stroke-width="13" stroke-linecap="butt" stroke-dasharray="${C*p} ${C}" transform="rotate(-90 65 65)"/></svg>`}
+function bar(lbl,v,max,col,unit){const p=max?Math.min(100,v/max*100):0;return`<div class="bar"><div class="bl"><span>${lbl}</span><b>${r0(v)}${max?' / '+r0(max):''} ${unit}</b></div><div class="tr"><div class="fl" style="width:${p}%;background:${col}"></div></div></div>`}
+function dayLabel(k){const t=todayKey();if(k===t)return'اليوم';const y=todayKey(new Date(Date.now()-864e5));if(k===y)return'أمس';return new Date(k+'T12:00:00').toLocaleDateString('ar-u-nu-latn',{weekday:'long',day:'numeric',month:'long'})}
+function shiftDay(n){const d=new Date(S.viewDate+'T12:00:00');d.setDate(d.getDate()+n);const k=todayKey(d);if(k>todayKey())return;S.viewDate=k;renderDay()}
+function renderDay(){
+  const k=S.viewDate,prof=LS.get('sa_prof',null),tg=prof&&prof.target||0,L=getLog(),E=L.filter(e=>e.d===k).sort((a,b)=>a.ts-b.ts),s=sumE(E);
+  $('#dLbl').textContent=dayLabel(k);
+  const left=tg?tg-s.k:null;
+  let h=`<div class="card"><div class="ringbox"><div style="position:relative;flex:none">${ring(s.k,tg)}<div style="position:absolute;inset:0;display:grid;place-items:center;text-align:center"><div><div class="ringnum">${r0(s.k)}</div><div class="hint" style="margin:0">سعرة</div></div></div></div>
+    <div style="flex:1">${tg?`<div class="hint" style="margin:0">الهدف ${tg} سعرة</div><div style="font:700 22px 'Reem Kufi';color:${left<0?'var(--chili)':'var(--sage)'}">${left<0?'تجاوزت بـ '+Math.abs(r0(left)):'بقي '+r0(left)}</div>`:`<div class="hint" style="margin:0">حدّد هدفك من تبويب «هدفي» لتظهر السعرات المتبقية.</div>`}</div></div>
+    <div style="margin-top:12px">${bar('بروتين',s.p,tg?tg*.25/4:0,'#2F6FB5','غ')}${bar('كربوهيدرات',s.c,tg?tg*.45/4:0,'#F2A900','غ')}${bar('دهون',s.f,tg?tg*.30/9:0,'#C93B28','غ')}
+    <div class="hint">ألياف ${r0(s.fi)} غ · سكريات ${r0(s.su)} غ · صوديوم ${r0(s.na)} ملغ</div></div></div>`;
+  h+=`<div class="sec"><h2>وجبات اليوم</h2>`;
+  if(!E.length)h+=`<div class="empty">لا وجبات مسجّلة هنا. صوّر أول وجبة وسجّلها.</div>`;
+  else h+=E.map(e=>`<div class="meal">${e.th?`<img src="${e.th}" alt="">`:`<div class="ph">${esc((e.items[0]&&e.items[0].e)||'🍽')}</div>`}<div><b>${esc(e.name)}</b><small>${esc(e.type)} · ${new Date(e.ts).toLocaleTimeString('ar-u-nu-latn',{hour:'numeric',minute:'2-digit'})}</small></div><div><div class="k">${e.k}</div><button class="d" data-del="${e.id}">حذف</button></div></div>`).join('');
+  h+=`</div>`;
+  // أسبوع
+  const days=[];for(let i=6;i>=0;i--){const d=new Date(Date.now()-i*864e5),kk=todayKey(d);days.push({k:kk,v:sumE(L.filter(e=>e.d===kk)).k,l:d.toLocaleDateString('ar-u-nu-latn',{weekday:'short'})})}
+  const mx=Math.max(tg||0,...days.map(d=>d.v),1);
+  h+=`<div class="sec"><h2>آخر 7 أيام</h2><div class="week">${days.map(d=>`<div class="col ${d.k===todayKey()?'today':''}"><span>${d.v?r0(d.v):''}</span><i style="height:${Math.max(2,d.v/mx*100*.78)}%"></i></div>`).join('')}${tg?`<div style="position:absolute;inset-inline:0;bottom:${tg/mx*100*.78}%;border-top:2px dashed var(--chili)"></div>`:''}</div><div class="wl">${days.map(d=>`<span>${d.l}</span>`).join('')}</div>${tg?'<div class="hint">الخط المتقطع هو هدفك اليومي.</div>':''}</div>`;
+  $('#dayBox').innerHTML=h;
+}
+$('#dayBox').addEventListener('click',e=>{const b=e.target.closest('[data-del]');if(!b)return;if(confirm('حذف هذه الوجبة من السجل؟')){LS.set('sa_log',getLog().filter(x=>x.id!==b.dataset.del));renderDay()}});
+$('#dPrev').onclick=()=>shiftDay(-1);$('#dNext').onclick=()=>shiftDay(1);
+
+/* ================= هدفي والإعدادات ================= */
+function calcTarget(p){const bmr=10*p.w+6.25*p.h-5*p.a+(p.sex==='m'?5:-161),tdee=bmr*p.act;return{bmr:r0(bmr),tdee:r0(tdee),target:Math.max(p.sex==='m'?1500:1200,Math.round((tdee+p.goal)/10)*10)}}
+function loadMe(){
+  const p=LS.get('sa_prof',null);
+  if(p){$('#pSex').value=p.sex;$('#pAge').value=p.a;$('#pW').value=p.w;$('#pH').value=p.h;$('#pAct').value=String(p.act);$('#pGoal').value=String(p.goal);showTarget(p)}
+  const c=cfg();$('#cProv').value=c.provider;$('#cKey').value=c.key;$('#cModel').value=c.model;$('#cModel').placeholder=defModel(c.provider);
+  $('#banner').hidden=!!c.key;
+}
+function showTarget(p){
+  $('#pOut').innerHTML=`<div class="note" style="margin-top:14px">هدفك اليومي: <b style="font:700 26px 'Reem Kufi'">${p.target}</b> سعرة<br><span style="font-size:13px">حرق أساسي ${p.bmr} · إجمالي الحرق ${p.tdee}. توزيع المغذيات المقترح: بروتين 25% · كربو 45% · دهون 30%.</span></div>`;
+}
+$('#pSave').onclick=()=>{
+  const p={sex:$('#pSex').value,a:num($('#pAge').value),w:num($('#pW').value),h:num($('#pH').value),act:num($('#pAct').value),goal:num($('#pGoal').value)};
+  if(!(p.a>0&&p.w>0&&p.h>0)){toast('أكمل العمر والوزن والطول');return}
+  Object.assign(p,calcTarget(p));LS.set('sa_prof',p);showTarget(p);toast('تم حفظ هدفك');renderDay();if(S.meal)renderMeal();
+};
+$('#cProv').onchange=()=>{$('#cModel').placeholder=defModel($('#cProv').value)};
+$('#cSave').onclick=()=>{LS.set('sa_cfg',{provider:$('#cProv').value,key:$('#cKey').value.trim(),model:$('#cModel').value.trim()});$('#banner').hidden=!!$('#cKey').value.trim();toast('تم حفظ الإعدادات')};
+$('#btnCsv').onclick=()=>{
+  const L=getLog();if(!L.length){toast('السجل فارغ');return}
+  const q=v=>'"'+String(v).replace(/"/g,'""')+'"';
+  const rows=[['التاريخ','الوجبة','الاسم','سعرات','بروتين','كربو','دهون','ألياف','سكر','صوديوم','المكونات']].concat(L.map(e=>[e.d,e.type,e.name,e.k,e.p,e.c,e.f,e.fi,e.su,e.na,e.items.map(i=>i.n+' '+i.g+'غ').join(' + ')]));
+  const blob=new Blob(['﻿'+rows.map(r=>r.map(q).join(',')).join('\n')],{type:'text/csv;charset=utf-8'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='sufra-log.csv';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),2000);
+};
+$('#btnWipe').onclick=()=>{if(confirm('سيُمسح السجل وهدفك والمفتاح من هذا المتصفح. متأكد؟')){['sa_log','sa_prof','sa_cfg','sa_wiki'].forEach(k=>localStorage.removeItem(k));S.meal=null;S.photos=[];renderShots();renderMeal();loadMe();renderDay();toast('تم مسح البيانات')}};
+
+/* ================= تنقّل وربط ================= */
+function go(v){
+  $$('.view').forEach(x=>x.classList.toggle('on',x.id==='v-'+v));
+  $$('.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.go===v));
+  if(v==='day')renderDay();
+  window.scrollTo({top:0});
+}
+$$('.tabs button').forEach(b=>b.onclick=()=>go(b.dataset.go));
+$('#btnCfg').onclick=()=>go('me');
+$('#btnKey').onclick=()=>{go('me');setTimeout(()=>$('#cKey').focus(),300)};
+/* كاميرا داخل التطبيق: معاينة مباشرة وإطار إرشادي، وتعود لكاميرا الجهاز إن لم تتوفر */
+let camStream=null,camFacing='environment';
+const CAM_TIPS=['صوّر الطبق من الأعلى وسط الإطار','الآن زاوية جانبية لتقدير العمق','صورة ثالثة اختيارية من زاوية أخرى'];
+async function startCam(){
+  stopCam();
+  camStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:camFacing},width:{ideal:1920},height:{ideal:1080}},audio:false});
+  const v=$('#camV');v.srcObject=camStream;await v.play().catch(()=>{});
+}
+function stopCam(){if(camStream){camStream.getTracks().forEach(t=>t.stop());camStream=null}}
+function closeCam(){stopCam();$('#camUI').hidden=true;document.body.style.overflow=''}
+function camUpdate(){$('#camTip').textContent=CAM_TIPS[Math.min(S.photos.length,2)];$('#camCnt').textContent=S.photos.length?S.photos.length+' / 3':'';$('#camDone').hidden=!S.photos.length}
+async function openCam(){
+  if(S.photos.length>=3){toast('الحد الأقصى 3 صور');return}
+  if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){$('#cam').click();return}
+  try{await startCam();$('#camUI').hidden=false;document.body.style.overflow='hidden';camUpdate()}
+  catch(e){stopCam();$('#cam').click()}
+}
+function snap(){
+  const v=$('#camV');if(!v.videoWidth)return;
+  const s=Math.min(1,1280/Math.max(v.videoWidth,v.videoHeight)),c=document.createElement('canvas');
+  c.width=Math.round(v.videoWidth*s);c.height=Math.round(v.videoHeight*s);
+  c.getContext('2d').drawImage(v,0,0,c.width,c.height);
+  const t=document.createElement('canvas'),k=160/Math.max(c.width,c.height);
+  t.width=Math.round(c.width*k);t.height=Math.round(c.height*k);t.getContext('2d').drawImage(c,0,0,t.width,t.height);
+  S.photos.push({full:c.toDataURL('image/jpeg',.85),thumb:t.toDataURL('image/jpeg',.6)});
+  const f=$('#camFlash');f.classList.add('on');setTimeout(()=>f.classList.remove('on'),140);
+  if(navigator.vibrate)navigator.vibrate(30);
+  renderShots();camUpdate();
+  if(S.photos.length>=3)setTimeout(closeCam,450);
+}
+$('#btnCam').onclick=openCam;
+$('#camX').onclick=closeCam;$('#camDone').onclick=closeCam;$('#camShot').onclick=snap;
+$('#camFlip').onclick=async()=>{camFacing=camFacing==='environment'?'user':'environment';try{await startCam()}catch(e){toast('تعذّر تبديل الكاميرا')}};
+$('#btnGal').onclick=()=>$('#gal').click();
+$('#cam').onchange=e=>{addFiles(e.target.files);e.target.value=''};
+$('#gal').onchange=e=>{addFiles(e.target.files);e.target.value=''};
+$('#shots').onclick=e=>{const b=e.target.closest('[data-rm]');if(b){S.photos.splice(+b.dataset.rm,1);renderShots()}};
+/* ===== استخراج الأطعمة والمشروبات من المعرض ===== */
+const BULK=[];let BULKINFO='';
+const typeAt=ts=>{const h=new Date(ts).getHours();return h<11?'فطور':h<16?'غداء':h<19?'سناك':'عشاء'};
+async function aiMeal(photos,ctx){
+  const c=cfg(),p=buildPrompt(ctx);
+  const txt=await callAI(c,p,photos);
+  const j=parseJSON(txt);
+  if(j.is_food===false)return null;
+  const items=(Array.isArray(j.items)?j.items:[]).map(fromAI).filter(i=>i.g>0);
+  if(!items.length)return null;
+  return{name:String(j.dish_ar||j.dish_en||'وجبة'),items,portion:1,conf:Math.min(1,Math.max(0,num(j.overall_confidence)||.7)),tips:String(j.tips||''),warn:String(j.hidden_warning||''),weighed:false,manual:false};
+}
+async function runBulk(files){
+  const c=cfg();
+  if(!c.key){toast('أضف مفتاح API أولًا');go('me');setTimeout(()=>$('#cKey').focus(),300);return}
+  if(!files.length)return;
+  if(files.length>12)toast('سنحلّل أول 12 صورة فقط');
+  files=files.slice(0,12);
+  BULK.length=0;let skipped=0,failed=0,lastErr='';
+  loading(true,true);
+  try{
+    for(let i=0;i<files.length;i++){
+      $('#lmsg').textContent='نفحص الصورة '+(i+1)+' من '+files.length+'…';
+      $('#lprog').style.width=(i/files.length*100)+'%';
+      try{
+        const im=await loadImg(files[i]);
+        const photo={full:shrink(im,1280,.85),thumb:shrink(im,160,.6)};
+        const meal=await aiMeal([photo],{ref:'',notes:'',wt:0});
+        if(!meal){skipped++;continue}
+        BULK.push({id:uid(),ts:files[i].lastModified||Date.now(),photo,meal,on:true});
+      }catch(e){failed++;lastErr=String(e.message||e)}
+    }
+    $('#lprog').style.width='100%';
+  }finally{loading(false)}
+  BULK.sort((a,b)=>a.ts-b.ts);
+  const parts=[];
+  if(skipped)parts.push('تم تجاهل '+skipped+' صورة ليست طعامًا أو مشروبًا.');
+  if(failed)parts.push('تعذّر تحليل '+failed+' صورة'+(lastErr?' ('+lastErr.slice(0,80)+')':'')+'.');
+  BULKINFO=parts.join(' ');
+  renderBulk();
+  if(!BULK.length&&!BULKINFO)toast('لم نجد أطعمة أو مشروبات');
+  $('#bulkBox').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function renderBulk(){
+  const box=$('#bulkBox');
+  if(!BULK.length&&!BULKINFO){box.hidden=true;return}
+  box.hidden=false;
+  const sel=BULK.filter(b=>b.on),tot=sel.reduce((s,b)=>s+totals(b.meal).k,0);
+  const rows=BULK.map(b=>{
+    const t=totals(b.meal),d=new Date(b.ts);
+    return`<div class="bi"><input type="checkbox" data-bk="${b.id}" ${b.on?'checked':''} aria-label="تحديد للحفظ"><img src="${b.photo.thumb}" alt=""><div><b>${esc(b.meal.name)}</b><small>${esc(typeAt(b.ts))} · ${d.toLocaleDateString('ar-u-nu-latn',{day:'numeric',month:'short'})} ${d.toLocaleTimeString('ar-u-nu-latn',{hour:'numeric',minute:'2-digit'})}</small><button class="open" data-open="${b.id}">افتح وعدّل</button></div><div class="k">${r0(t.k)}</div></div>`;
+  }).join('');
+  box.innerHTML=`<h2>${BULK.length?'وجدنا '+BULK.length+' من الأطعمة والمشروبات':'لا توجد نتائج'}</h2>`+rows+
+    (BULK.length?`<button class="btn sf wide" id="bulkSave" style="margin-top:14px" ${sel.length?'':'disabled'}>احفظ المحدد (${sel.length}) في السجل · ${r0(tot)} سعرة</button>`:'')+
+    (BULKINFO?`<div class="skip">${esc(BULKINFO)}</div>`:'');
+}
+$('#bulkBox').addEventListener('change',e=>{
+  const id=e.target.dataset.bk;if(!id)return;
+  const b=BULK.find(x=>x.id===id);if(b){b.on=e.target.checked;renderBulk()}
+});
+$('#bulkBox').addEventListener('click',e=>{
+  const o=e.target.closest('[data-open]');
+  if(o){
+    const b=BULK.find(x=>x.id===o.dataset.open);if(!b)return;
+    S.photos=[b.photo];S.meal=b.meal;S.type=typeAt(b.ts);renderShots();renderMeal();
+    $('#result').scrollIntoView({behavior:'smooth',block:'start'});return;
+  }
+  if(e.target.closest('#bulkSave')){
+    const sel=BULK.filter(b=>b.on);if(!sel.length)return;
+    const L=getLog();
+    sel.forEach(b=>{
+      const m=b.meal,t=totals(m);
+      L.push({id:uid(),d:todayKey(new Date(b.ts)),ts:b.ts,type:typeAt(b.ts),name:m.name,k:r0(t.k),p:r1(t.p),c:r1(t.c),f:r1(t.f),fi:r1(t.fi),su:r1(t.su),na:r0(t.na),th:b.photo.thumb,items:m.items.map(i=>({n:i.name,e:i.e,g:r0(i.g*m.portion),k:r0(i.k*i.g*m.portion/100)}))});
+    });
+    if(LS.set('sa_log',L)){
+      const ids=new Set(sel.map(b=>b.id));
+      for(let i=BULK.length-1;i>=0;i--)if(ids.has(BULK[i].id))BULK.splice(i,1);
+      BULKINFO='';renderBulk();renderDay();
+      toast('تم حفظ '+sel.length+' وجبة بتواريخ صورها. تجدها في تبويب «اليوم»');
+    }
+  }
+});
+$('#btnBulk').onclick=()=>$('#bulk').click();
+$('#bulk').onchange=e=>{const f=[...e.target.files];e.target.value='';runBulk(f)};
+$('#btnGo').onclick=analyze;
+$('#btnManual').onclick=()=>{ensureMeal();renderMeal();openAdd()};
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeSheet();closeCam()}});
+
+loadMe();renderShots();renderDay();
+</script>
+</body>
+</html>
